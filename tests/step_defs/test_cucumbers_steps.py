@@ -1,8 +1,16 @@
 from pytest_bdd import scenarios, parsers, given, when, then
 from cucumbers import CucumberBasket
 
+# Example converters dictionary
+CONVERTERS = {
+    'initial': int,
+    'some': int,
+    'total': int
+}
 
-scenarios('../features/cucumbers.feature')
+
+scenarios('../features/cucumbers.feature', )
+
 
 # Dictionary for converting value types
 EXTRA_TYPES = {
@@ -10,12 +18,17 @@ EXTRA_TYPES = {
 }
 
 
+scenarios('../features/cucumbers.feature', example_converters=CONVERTERS)
+
+
 @given(parsers.cfparse('the basket has "{initial:Number}" cucumbers', extra_types=EXTRA_TYPES), target_fixture='basket')
+@given('the basket has <initial> cucumbers')
 def basket(initial):
     return CucumberBasket(initial_count=initial)
 
 
 @when(parsers.cfparse('"{some:Number}" cucumbers are added to the basket', extra_types=EXTRA_TYPES))
+@when('<some> cucumbers are added to the basket')
 def add_cucumbers(basket, some):
     basket.add(some)
 
@@ -26,5 +39,6 @@ def remove_cucumbers(basket, some):
 
 
 @then(parsers.cfparse('the basket contains "{total:Number}" cucumbers', extra_types=EXTRA_TYPES))
+@then('the basket contains <total> cucumbers')
 def basket_has_total(basket, total):
     assert basket.count == total
