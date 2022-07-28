@@ -12,12 +12,17 @@ EXTRA_TYPES = {
 
 @given(parsers.cfparse('the basket has "{initial:Number}" cucumbers', extra_types=EXTRA_TYPES), target_fixture='basket')
 def basket(initial):
-    return CucumberBasket(initial_count=2)
+    return CucumberBasket(initial_count=initial)
 
 
 @when(parsers.cfparse('"{some:Number}" cucumbers are added to the basket', extra_types=EXTRA_TYPES))
 def add_cucumbers(basket, some):
     basket.add(some)
+
+
+@when(parsers.cfparse('"{some:Number}" cucumbers are removed from the basket', extra_types=EXTRA_TYPES))
+def remove_cucumbers(basket, some):
+    basket.remove(some)
 
 
 @then(parsers.cfparse('the basket contains "{total:Number}" cucumbers', extra_types=EXTRA_TYPES))
