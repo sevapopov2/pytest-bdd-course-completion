@@ -9,6 +9,7 @@ name = "pypi"
 pytest = "*"
 pytest-bdd = "*"
 autopep8 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.10"
