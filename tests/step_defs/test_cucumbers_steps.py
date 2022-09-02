@@ -9,7 +9,7 @@ CONVERTERS = {
 }
 
 
-scenarios('../features/cucumbers.feature', )
+scenarios('../features/cucumbers.feature')
 
 
 # Dictionary for converting value types
